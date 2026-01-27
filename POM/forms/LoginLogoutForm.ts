@@ -7,16 +7,18 @@ export class LoginFrom{
     private loginForm: Locator
 
     constructor(private readonly page: Page){
-        this.loginForm = page.locator('(//form[@class="gigya-login-form"])[1]')
-        this.loginEmail = this.loginForm.locator('(//input[@name="username"])[1]')
-        this.loginPassword = this.loginForm.locator('(//input[@name="password"])[1]')
-        this.LoginBtn = this.loginForm.locator("(//button[@type='submit'])[1]")
+        this.loginForm = page.locator("//form[@class='gigya-login-form']").first()
+        this.loginEmail = this.loginForm.locator('[data-gigya-name="loginID"]').first()
+        this.loginPassword = this.loginForm.locator('//input[@name="password"]').first()
+        this.LoginBtn = this.loginForm.locator("//button[@type='submit']").first()
     }
 
     async loginUser(email:string, password:string){
-        await this.loginForm.scrollIntoViewIfNeeded()
-        await this.loginEmail.fill(email)
-        await this.loginPassword.fill(password)
+        await this.LoginBtn.scrollIntoViewIfNeeded()
+        await this.loginEmail.waitFor({'state':'visible'})
+        await this.loginEmail.pressSequentially(email, {delay:200})
+        await this.loginPassword.pressSequentially(password, {delay:200})
+        await this.page.waitForTimeout(1000)
         await this.LoginBtn.click()
         await this.page.locator("#headerInfo").waitFor({state:'visible'})
     }
