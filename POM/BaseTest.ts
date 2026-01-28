@@ -12,6 +12,7 @@ export class BaseTest{
     userCabinet: UserCabinet
     mainPage: MainPage
     page: Page
+    requestHandler: RequestHandler
     private cookieBtn: Locator
     private cookieBar: Locator
     private upsHeader: Locator    
@@ -23,6 +24,7 @@ export class BaseTest{
         this.loginPage = new LoginFrom(page)
         this.userCabinet = new UserCabinet(page)
         this.mainPage = new MainPage(page)
+        this.requestHandler = new RequestHandler(page)
         this.cookieBtn = this.page.locator("//button[text()='Accepteer cookies']")
         this.cookieBar = this.page.locator("//dialog[contains(@class, 'cookieinfo')]")
         this.upsHeader = this.page.locator(".usp-header")

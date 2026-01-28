@@ -14,10 +14,11 @@ export class LoginFrom{
     }
 
     async loginUser(email:string, password:string){
+        await this.loginEmail.waitFor({state:'visible'})
         await this.LoginBtn.scrollIntoViewIfNeeded()
         await this.loginEmail.waitFor({'state':'visible'})
-        await this.loginEmail.pressSequentially(email, {delay:200})
-        await this.loginPassword.pressSequentially(password, {delay:200})
+        await this.loginEmail.pressSequentially(email, {delay:100})
+        await this.loginPassword.pressSequentially(password, {delay:100})
         await this.page.waitForTimeout(1000)
         await this.LoginBtn.click()
         await this.page.locator("#headerInfo").waitFor({state:'visible'})

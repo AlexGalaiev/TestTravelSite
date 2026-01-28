@@ -12,5 +12,6 @@ export const test = base.extend<TestOptions>({
     app: async({page}, use)=>{
         let baseTest = new BaseTest(page)
         await use(baseTest)
+        await page.close()
     }
 })
