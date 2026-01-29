@@ -23,6 +23,5 @@ test.describe('TUI. Login functionality',async()=>{
             await app.header.userMenu.waitFor({state:'hidden'})
             expect(await app.header.getHeaderName()).toEqual('myTUI')
         })
-
     })
 })
