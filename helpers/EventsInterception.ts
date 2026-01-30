@@ -1,6 +1,6 @@
 import { Page } from "playwright"
 
-export class RequestHandler{
+export class EventsInterceptions{
 
     constructor(private page: Page){
     }

@@ -3,9 +3,10 @@ import {MainHeader} from "..//POM/Header"
 import { LoginFrom } from "./forms/LoginLogoutForm";
 import { UserCabinet } from "./UserCabinet";
 import { locales } from "zod";
-import { RequestHandler } from "../helpers/EventsInterception";
+import { EventsInterceptions } from "../helpers/EventsInterception";
 import { MainPage } from "./MainPage";
 import { CreateLeadForm } from "./forms/CreateLeadForm";
+import { getLoginUserCockies } from "../helpers/GetAuthToken";
 
 export class BaseTest{
     header: MainHeader
@@ -13,12 +14,11 @@ export class BaseTest{
     userCabinet: UserCabinet
     mainPage: MainPage
     page: Page
-    requestHandler: RequestHandler
+    requestHandler: EventsInterceptions
     createLead: CreateLeadForm
     private cookieBtn: Locator
     private cookieBar: Locator
     private upsHeader: Locator    
-
 
     constructor(page:Page){
         this.page = page
@@ -26,7 +26,7 @@ export class BaseTest{
         this.loginPage = new LoginFrom(page)
         this.userCabinet = new UserCabinet(page)
         this.mainPage = new MainPage(page)
-        this.requestHandler = new RequestHandler(page)
+        this.requestHandler = new EventsInterceptions(page)
         this.createLead = new CreateLeadForm(page)
         this.cookieBtn = this.page.locator("//button[text()='Accepteer cookies']")
         this.cookieBar = this.page.locator("//dialog[contains(@class, 'cookieinfo')]")
@@ -39,5 +39,9 @@ export class BaseTest{
             await this.cookieBtn.click()
             await this.cookieBar.waitFor({state:'hidden'})
         }
+    }
+    async getLoginUserStorageState(){
+        let data = await getLoginUserCockies()
+        return data
     }
 }
