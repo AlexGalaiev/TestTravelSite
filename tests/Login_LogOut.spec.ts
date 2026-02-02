@@ -2,10 +2,10 @@ import {test} from "../test-option"
 import {expect} from "@playwright/test"
 test.describe('TUI. Login functionality',async()=>{
 
-    test('Test for login by previously created user and log out', async({app})=>{
+    test('Test for login by previously created user and log out', async({app, api})=>{
         
         await test.step('Increase speed of site uploading, abort some heavy elemets', async()=>{
-            await app.requestHandler.abortRequest("**/public/**")
+            await api.requestHandler.abortRequest("**/public/**")
         })
         await test.step('Open login form', async()=>{
             await app.open('/mijntui/')

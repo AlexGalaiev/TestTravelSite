@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'node:path';
 
-require("dotenv").config();
+require("dotenv").config({path:'.env'});
 
 export default defineConfig({
   testDir: './tests',
